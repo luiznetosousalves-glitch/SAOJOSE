@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>São José Transporte Urbano — Movendo Fortaleza</title>
+<meta name="description" content="A Auto Viação São José é uma das empresas de transporte urbano mais tradicionais de Fortaleza, CE. Frota moderna, segurança e conforto há mais de 30 anos."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Azul institucional São José */
+  --blue:        #1A56DB;
+  --blue-dark:   #1040B0;
+  --blue-deeper: #0D2F85;
+  --blue-light:  #3B72F0;
+  --blue-pale:   #E8F0FE;
+  --blue-glass:  rgba(26,86,219,0.12);
+  --blue-glow:   rgba(26,86,219,0.30);
+
+  /* Neutros */
+  --black:    #07090F;
+  --dark:     #0E1117;
+  --dark2:    #141820;
+  --dark3:    #1B2030;
+  --dark4:    #232B3E;
+  --gray:     #2D3650;
+  --gray2:    #3E4B68;
+  --mid:      #6B7A99;
+  --light:    #A0AECB;
+  --lighter:  #C8D3E8;
+  --white:    #FFFFFF;
+  --off-white:#F4F7FF;
+
+  /* Tipografia */
+  --font: 'Inter', 'Poppins', system-ui, sans-serif;
+
+  /* Layout */
+  --radius:    18px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+
+  /* Sombras */
+  --shadow:    0 20px 60px rgba(0,0,0,0.45);
+  --shadow-sm: 0 8px 30px rgba(0,0,0,0.25);
+  --shadow-blue: 0 8px 30px rgba(26,86,219,0.35);
+
+  /* Transição padrão */
+  --ease: cubic-bezier(0.4,0,0.2,1);
+  --transition: all 0.38s var(--ease);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font);
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; object-fit: cover; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; outline: none; font-family: var(--font); background: none; }
+input, textarea, select { font-family: var(--font); }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+::selection { background: var(--blue); color: var(--white); }
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+.section-tag {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3.5px;
+  text-transform: uppercase; color: var(--blue-light);
+  margin-bottom: 14px;
+}
+.section-tag::before {
+  content: ''; width: 24px; height: 2px;
+  background: linear-gradient(to right, var(--blue), var(--blue-light));
+  border-radius: 2px;
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  font-weight: 800; line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+.section-sub {
+  font-size: 1rem; color: var(--light);
+  max-width: 520px; line-height: 1.8; margin-top: 14px;
+}
+
+/* BOTÕES */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 14px 28px; border-radius: 50px;
+  font-size: 0.875rem; font-weight: 600; letter-spacing: 0.3px;
+  transition: var(--transition); white-space: nowrap; cursor: pointer;
+}
+.btn-primary {
+  background: var(--blue); color: var(--white);
+  box-shadow: var(--shadow-blue);
+}
+.btn-primary:hover {
+  background: var(--blue-light);
+  box-shadow: 0 12px 40px rgba(26,86,219,0.5);
+  transform: translateY(-2px);
+}
+.btn-outline {
+  background: transparent; color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(8px);
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.5);
+  transform: translateY(-2px);
+}
+.btn-blue-outline {
+  background: transparent; color: var(--blue-light);
+  border: 1.5px solid rgba(26,86,219,0.4);
+}
+.btn-blue-outline:hover {
+  background: var(--blue-glass);
+  border-color: var(--blue);
+  transform: translateY(-2px);
+}
+.btn-white { background: var(--white); color: var(--blue-dark); font-weight: 700; }
+.btn-white:hover { background: var(--off-white); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,255,255,0.2); }
+
+/* BADGE */
+.badge {
+  display: inline-block; padding: 5px 14px;
+  background: var(--blue-glass); color: var(--blue-light);
+  border: 1px solid rgba(26,86,219,0.3);
+  border-radius: 50px; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase;
+}
+
+/* REVEAL ANIMATIONS */
+.reveal {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left  { opacity: 0; transform: translateX(-36px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(36px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.delay-1 { transition-delay: 0.10s !important; }
+.delay-2 { transition-delay: 0.20s !important; }
+.delay-3 { transition-delay: 0.30s !important; }
+.delay-4 { transition-delay: 0.40s !important; }
+.delay-5 { transition-delay: 0.50s !important; }
+
+/* ============================================================
+   LOGO SVG INLINE
+   ============================================================ */
+.logo-svg { width: 40px; height: 40px; flex-shrink: 0; }
+.logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-text strong { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; }
+.logo-text small { font-size: 0.6rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--light); }
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+#topbar {
+  background: var(--blue-deeper); padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.topbar-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+.topbar-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.75rem; color: rgba(255,255,255,0.75);
+}
+.topbar-item i { color: var(--blue-light); font-size: 0.7rem; }
+.topbar-right { display: flex; align-items: center; gap: 20px; }
+.topbar-social { display: flex; gap: 12px; }
+.topbar-social a {
+  font-size: 0.8rem; color: rgba(255,255,255,0.6);
+  transition: color 0.25s;
+}
+.topbar-social a:hover { color: var(--white); }
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  transition: var(--transition);
+}
+#navbar.scrolled {
+  background: rgba(7,9,15,0.93);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px; gap: 24px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 11px;
+  flex-shrink: 0;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 4px;
+  flex: 1; justify-content: center;
+}
+.nav-links a {
+  font-size: 0.83rem; font-weight: 500; color: var(--lighter);
+  padding: 7px 13px; border-radius: var(--radius-xs);
+  transition: var(--transition); position: relative;
+}
+.nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+
+/* COLABORADOR — destaque visual no menu */
+.nav-colaborador {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px; border-radius: 50px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: var(--white) !important; font-weight: 600 !important;
+  font-size: 0.8rem !important; letter-spacing: 0.3px;
+  box-shadow: 0 4px 16px rgba(26,86,219,0.4);
+  transition: var(--transition);
+}
+.nav-colaborador:hover {
+  box-shadow: 0 8px 24px rgba(26,86,219,0.6);
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--blue-light), var(--blue)) !important;
+}
+.nav-colaborador i { font-size: 0.7rem; }
+
+.nav-cta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.hamburger {
+  display: none; flex-direction: column; justify-content: center;
+  gap: 5px; padding: 6px; background: none;
+}
+.hamburger span {
+  width: 22px; height: 2px; background: var(--white);
+  border-radius: 2px; transition: var(--transition); display: block;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* MOBILE MENU */
+#mobile-menu {
+  display: none; position: fixed;
+  top: 68px; left: 0; right: 0; bottom: 0;
+  background: rgba(7,9,15,0.98);
+  backdrop-filter: blur(24px); z-index: 999;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 32px;
+  overflow-y: auto;
+}
+#mobile-menu.open { display: flex; }
+.mob-link {
+  width: 100%; text-align: center; padding: 16px;
+  font-size: 1.2rem; font-weight: 700; color: var(--lighter);
+  border-radius: var(--radius-sm); transition: var(--transition);
+}
+.mob-link:hover, .mob-link:active { color: var(--white); background: rgba(255,255,255,0.05); }
+.mob-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.08); margin: 8px 0; }
+.mob-collab {
+  width: 100%; text-align: center; padding: 16px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: var(--white); font-size: 1.1rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.mob-info { font-size: 0.8rem; color: var(--mid); margin-top: 16px; text-align: center; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; overflow: hidden;
+  padding-top: 108px; /* topbar + navbar */
+}
+
+/* Fundo: imagem real de ônibus + overlay */
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.hero-bg-img {
+  position: absolute; inset: 0;
+  background:
+    url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1600&q=80') center/cover no-repeat;
+  transform: scale(1.06);
+  animation: heroZoom 16s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1.0); }
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(7,9,15,0.94) 0%,
+    rgba(10,20,55,0.82) 45%,
+    rgba(7,9,15,0.45) 100%
+  );
+}
+.hero-overlay-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
+  background: linear-gradient(to top, var(--black), transparent);
+}
+
+/* Decorativos */
+.hero-grid-dots {
+  position: absolute; right: 8%; top: 22%; z-index: 1;
+  width: 200px; height: 200px; opacity: 0.07;
+  background-image: radial-gradient(var(--blue-light) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  animation: dotsFloat 8s ease-in-out infinite alternate;
+}
+@keyframes dotsFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-12px); }
+}
+.hero-accent-line {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--blue), var(--blue-light), transparent);
+  opacity: 0.6;
+}
+
+/* Conteúdo */
+.hero-content {
+  position: relative; z-index: 10;
+  max-width: 680px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 18px; border-radius: 50px;
+  background: rgba(26,86,219,0.15); border: 1px solid rgba(26,86,219,0.35);
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--blue-light);
+  margin-bottom: 28px;
+  animation: fadeUp 0.9s ease 0.1s both;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--blue-light);
+  animation: blink 1.8s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+.hero-title {
+  font-size: clamp(2.5rem, 6.5vw, 5.2rem);
+  font-weight: 900; line-height: 1.06;
+  letter-spacing: -0.04em; margin-bottom: 22px;
+  animation: fadeUp 0.9s ease 0.22s both;
+}
+.hero-title-accent { color: var(--blue-light); position: relative; }
+.hero-title-accent::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(to right, var(--blue), var(--blue-light));
+  border-radius: 2px;
+}
+
+.hero-sub {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: var(--light); line-height: 1.8; margin-bottom: 44px;
+  animation: fadeUp 0.9s ease 0.35s both;
+}
+.hero-buttons {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  animation: fadeUp 0.9s ease 0.48s both;
+}
+
+/* Estatísticas rápidas na hero */
+.hero-stats {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 36px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fadeUp 0.9s ease 0.62s both;
+}
+.hero-stat-item { display: flex; flex-direction: column; gap: 2px; }
+.hero-stat-num { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.04em; color: var(--white); }
+.hero-stat-num span { color: var(--blue-light); }
+.hero-stat-label { font-size: 0.72rem; color: var(--mid); font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+
+/* Scroll hint */
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 7px;
+  color: var(--gray2); font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase;
+  animation: fadeUp 1s ease 1s both;
+}
+.scroll-bar {
+  width: 1px; height: 44px;
+  background: linear-gradient(to bottom, var(--blue), transparent);
+  animation: scrollPulse 2.2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:0.3;transform:scaleY(0.5)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+#ticker {
+  background: var(--blue-dark); overflow: hidden;
+  padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative; z-index: 50;
+}
+.ticker-wrap { display: flex; gap: 0; }
+.ticker-track {
+  display: flex; gap: 56px; min-width: max-content;
+  animation: ticker 35s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 0.8rem; font-weight: 600; white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+.ticker-dot { width: 4px; height: 4px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ============================================================
+   STATS
+   ============================================================ */
+#stats {
+  padding: 110px 0; background: var(--dark);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.stats-header { text-align: center; margin-bottom: 64px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: rgba(255,255,255,0.05);
+  border-radius: var(--radius); overflow: hidden;
+}
+.stat-card {
+  background: var(--dark2); padding: 44px 28px 38px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  position: relative; overflow: hidden; transition: var(--transition);
+  cursor: default;
+}
+.stat-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(to right, var(--blue), var(--blue-light));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease);
+}
+.stat-card:hover::after { transform: scaleX(1); }
+.stat-card:hover { background: var(--dark3); }
+.stat-icon {
+  width: 54px; height: 54px; border-radius: 16px;
+  background: var(--blue-glass); border: 1px solid rgba(26,86,219,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: var(--blue-light); margin-bottom: 22px;
+  transition: var(--transition);
+}
+.stat-card:hover .stat-icon { background: var(--blue); color: var(--white); }
+.stat-num {
+  font-size: 2.8rem; font-weight: 900; letter-spacing: -0.05em;
+  color: var(--white); line-height: 1; margin-bottom: 7px;
+}
+.stat-num em { color: var(--blue-light); font-style: normal; }
+.stat-lbl { font-size: 0.78rem; color: var(--mid); font-weight: 500; letter-spacing: 0.5px; }
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about {
+  padding: 130px 0; background: var(--black);
+  position: relative; overflow: hidden;
+}
+.about-glow {
+  position: absolute; top: -150px; right: -200px; width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(26,86,219,0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+
+/* Coluna imagens */
+.about-imgs { position: relative; height: 540px; }
+.about-img-main {
+  position: absolute; inset: 0 80px 90px 0;
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.about-img-main img {
+  width: 100%; height: 100%;
+  transition: transform 0.8s var(--ease);
+}
+.about-img-main:hover img { transform: scale(1.04); }
+
+.about-img-sec {
+  position: absolute; bottom: 0; right: 0; width: 260px; height: 230px;
+  border-radius: var(--radius); overflow: hidden;
+  border: 5px solid var(--black); box-shadow: var(--shadow);
+}
+.about-img-sec img { width: 100%; height: 100%; }
+
+.about-badge-years {
+  position: absolute; top: 28px; right: 68px; z-index: 5;
+  background: var(--blue); color: var(--white);
+  padding: 18px 22px; border-radius: var(--radius-sm); text-align: center;
+  box-shadow: var(--shadow-blue);
+}
+.about-badge-years .big { font-size: 2.2rem; font-weight: 900; letter-spacing: -0.05em; display: block; }
+.about-badge-years .sm { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; }
+
+/* Coluna texto */
+.about-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 40px; }
+.pillar {
+  padding: 20px 18px; border-radius: var(--radius-sm);
+  background: var(--dark2); border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition);
+}
+.pillar:hover { border-color: rgba(26,86,219,0.35); transform: translateY(-3px); background: var(--dark3); }
+.pillar-icon { font-size: 1.2rem; color: var(--blue-light); margin-bottom: 10px; }
+.pillar h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 4px; }
+.pillar p { font-size: 0.77rem; color: var(--mid); line-height: 1.55; }
+
+/* ============================================================
+   LINES
+   ============================================================ */
+#lines {
+  padding: 120px 0; background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.lines-top { margin-bottom: 48px; }
+
+.search-wrap {
+  background: var(--dark2); border: 1.5px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius); padding: 7px; display: flex;
+  align-items: center; gap: 8px; margin-bottom: 24px;
+  transition: border-color 0.3s;
+}
+.search-wrap:focus-within { border-color: var(--blue); }
+.search-icon { padding: 0 14px; color: var(--gray2); font-size: 0.9rem; }
+.search-wrap input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--white); font-size: 0.95rem; padding: 12px 0;
+}
+.search-wrap input::placeholder { color: var(--gray2); }
+.search-wrap button {
+  background: var(--blue); color: var(--white);
+  padding: 12px 22px; border-radius: var(--radius-xs);
+  font-size: 0.83rem; font-weight: 600; transition: var(--transition);
+}
+.search-wrap button:hover { background: var(--blue-light); }
+
+.filter-bar { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 36px; }
+.flt-btn {
+  padding: 8px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;
+  background: var(--dark3); color: var(--lighter);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: var(--transition); cursor: pointer;
+}
+.flt-btn.active, .flt-btn:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+.lines-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 16px; }
+.line-card {
+  background: var(--dark2); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius); padding: 24px; cursor: pointer;
+  transition: var(--transition); position: relative; overflow: hidden;
+}
+.line-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--blue);
+  transform: scaleY(0); transform-origin: bottom; transition: transform 0.35s var(--ease);
+  border-radius: 0 0 0 4px;
+}
+.line-card:hover { border-color: rgba(26,86,219,0.25); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+.line-card:hover::before { transform: scaleY(1); }
+.line-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 13px; }
+.line-num {
+  background: var(--blue-glass); color: var(--blue-light);
+  border: 1px solid rgba(26,86,219,0.28); border-radius: var(--radius-xs);
+  padding: 5px 13px; font-size: 0.88rem; font-weight: 700;
+}
+.line-status-dot {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.7rem; font-weight: 600; color: #4ADE80;
+}
+.line-status-dot::before { content: ''; width: 6px; height: 6px; background: #4ADE80; border-radius: 50%; box-shadow: 0 0 6px #4ADE80; }
+.line-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+.line-route { font-size: 0.78rem; color: var(--mid); display: flex; align-items: center; gap: 6px; }
+.line-foot {
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex; gap: 20px;
+}
+.lf-item { display: flex; flex-direction: column; gap: 2px; }
+.lf-item .lbl { font-size: 0.67rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.5px; }
+.lf-item .val { font-size: 0.83rem; font-weight: 600; }
+
+/* ============================================================
+   FLEET
+   ============================================================ */
+#fleet { padding: 120px 0; background: var(--black); overflow: hidden; }
+.fleet-top { margin-bottom: 56px; }
+
+.fleet-scroller { overflow-x: auto; padding-bottom: 16px; cursor: grab; -webkit-overflow-scrolling: touch; }
+.fleet-scroller:active { cursor: grabbing; }
+.fleet-scroller::-webkit-scrollbar { height: 4px; }
+.fleet-scroller::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 4px; }
+
+.fleet-row { display: flex; gap: 22px; min-width: max-content; padding: 4px 4px 4px 4px; }
+
+.fleet-card {
+  width: 340px; background: var(--dark2); border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.06); overflow: hidden;
+  transition: var(--transition); flex-shrink: 0;
+}
+.fleet-card:hover { border-color: rgba(26,86,219,0.3); transform: translateY(-6px); box-shadow: var(--shadow); }
+
+.fleet-img {
+  height: 210px; overflow: hidden; position: relative;
+}
+.fleet-img img {
+  width: 100%; height: 100%;
+  transition: transform 0.7s var(--ease);
+}
+.fleet-card:hover .fleet-img img { transform: scale(1.06); }
+.fleet-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(7,9,15,0.7) 0%, transparent 50%);
+}
+.fleet-img-badge {
+  position: absolute; top: 14px; right: 14px;
+  background: rgba(7,9,15,0.80); backdrop-filter: blur(8px);
+  padding: 5px 12px; border-radius: 50px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.1); color: var(--lighter);
+}
+.fleet-body { padding: 24px; }
+.fleet-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 7px; }
+.fleet-desc { font-size: 0.8rem; color: var(--mid); line-height: 1.65; margin-bottom: 18px; }
+.fleet-feats { display: flex; flex-wrap: wrap; gap: 7px; }
+.fleet-feat {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.72rem; font-weight: 500; color: var(--lighter);
+  background: var(--dark3); border-radius: 50px; padding: 5px 11px;
+}
+.fleet-feat i { color: var(--blue-light); font-size: 0.62rem; }
+
+/* ============================================================
+   PARTNERS
+   ============================================================ */
+#partners {
+  padding: 100px 0; background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  overflow: hidden;
+}
+.partners-header { text-align: center; margin-bottom: 60px; }
+.partners-sub { font-size: 0.9rem; color: var(--mid); margin-top: 10px; }
+
+/* Grade de parceiros */
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: rgba(255,255,255,0.05);
+  border-radius: var(--radius); overflow: hidden;
+  margin-bottom: 40px;
+}
+.partner-item {
+  background: var(--dark2); padding: 36px 24px;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition); cursor: default;
+}
+.partner-item:hover { background: var(--dark3); }
+.partner-logo-box {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  opacity: 0.45; transition: opacity 0.35s;
+  filter: grayscale(100%) brightness(1.8);
+}
+.partner-item:hover .partner-logo-box { opacity: 0.85; filter: grayscale(0%) brightness(1); }
+.partner-logo-box i { font-size: 2rem; color: var(--lighter); }
+.partner-logo-box span { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--lighter); }
+
+/* Carrossel de selos */
+.partners-seals {
+  display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center;
+}
+.seal {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px; border-radius: var(--radius-sm);
+  background: var(--dark2); border: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.78rem; font-weight: 600; color: var(--lighter);
+  transition: var(--transition);
+}
+.seal:hover { border-color: rgba(26,86,219,0.3); transform: translateY(-2px); }
+.seal i { color: var(--blue-light); }
+
+/* ============================================================
+   CAREERS
+   ============================================================ */
+#careers {
+  padding: 120px 0; background: var(--black);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  position: relative; overflow: hidden;
+}
+.careers-watermark {
+  position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+  font-size: 18vw; font-weight: 900; color: rgba(255,255,255,0.012);
+  letter-spacing: -0.05em; pointer-events: none; user-select: none; white-space: nowrap;
+}
+.careers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.careers-left { position: relative; z-index: 2; }
+.benefits { display: grid; gap: 12px; margin-top: 40px; }
+.benefit {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 20px; border-radius: var(--radius-sm);
+  background: var(--dark2); border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition);
+}
+.benefit:hover { border-color: rgba(26,86,219,0.28); transform: translateX(6px); }
+.benefit-ico {
+  width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px;
+  background: var(--blue-glass); border: 1px solid rgba(26,86,219,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--blue-light);
+}
+.benefit-txt h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 3px; }
+.benefit-txt p { font-size: 0.78rem; color: var(--mid); }
+
+.careers-right { position: relative; z-index: 2; }
+.openings-label { font-size: 0.8rem; font-weight: 700; color: var(--lighter); letter-spacing: 0.5px; margin-bottom: 18px; }
+.job-card {
+  background: var(--dark2); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius); padding: 24px; margin-bottom: 14px;
+  transition: var(--transition); cursor: pointer;
+}
+.job-card:hover { border-color: rgba(26,86,219,0.28); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.job-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.job-title { font-size: 0.95rem; font-weight: 700; }
+.job-area { font-size: 0.77rem; color: var(--mid); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.job-tags { display: flex; gap: 7px; flex-wrap: wrap; }
+.job-tag {
+  padding: 4px 11px; border-radius: 50px; font-size: 0.7rem; font-weight: 600;
+  background: var(--dark3); border: 1px solid rgba(255,255,255,0.07); color: var(--lighter);
+}
+.job-tag.hi { background: var(--blue-glass); border-color: rgba(26,86,219,0.28); color: var(--blue-light); }
+
+/* BOTÃO TRABALHE CONOSCO — link externo com animação elegante */
+.careers-cta-btn {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  width: 100%; margin-top: 24px;
+  padding: 17px 28px; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue), var(--blue-light));
+  background-size: 200% 200%; background-position: left center;
+  color: var(--white); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.4px;
+  transition: background-position 0.6s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  box-shadow: var(--shadow-blue); position: relative; overflow: hidden;
+}
+.careers-cta-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  transform: translateX(-100%); transition: transform 0.7s var(--ease);
+}
+.careers-cta-btn:hover { background-position: right center; transform: translateY(-3px); box-shadow: 0 16px 40px rgba(26,86,219,0.55); }
+.careers-cta-btn:hover::before { transform: translateX(100%); }
+
+/* ============================================================
+   CTA BANNER
+   ============================================================ */
+#cta-banner {
+  padding: 90px 0; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--blue-deeper) 0%, var(--blue-dark) 50%, var(--blue) 100%);
+}
+#cta-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 20% 60%, rgba(255,255,255,0.07) 0%, transparent 55%);
+}
+.cta-inner {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 36px;
+}
+.cta-txt h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.03em; }
+.cta-txt p { font-size: 1rem; opacity: 0.8; margin-top: 8px; max-width: 440px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact {
+  padding: 120px 0; background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.channels { display: grid; gap: 13px; margin-top: 40px; }
+.channel {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 22px; background: var(--dark2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius); transition: var(--transition); cursor: pointer;
+}
+.channel:hover { border-color: rgba(26,86,219,0.28); transform: translateX(6px); }
+.ch-icon {
+  width: 48px; height: 48px; flex-shrink: 0; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
+}
+.ch-icon.green  { background: rgba(37,211,102,0.12); color: #25D366; border: 1px solid rgba(37,211,102,0.2); }
+.ch-icon.blue   { background: var(--blue-glass); color: var(--blue-light); border: 1px solid rgba(26,86,219,0.2); }
+.ch-icon.indigo { background: rgba(99,102,241,0.12); color: #818CF8; border: 1px solid rgba(99,102,241,0.2); }
+.ch-icon.sky    { background: rgba(14,165,233,0.12); color: #38BDF8; border: 1px solid rgba(14,165,233,0.2); }
+.ch-info h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 2px; }
+.ch-info p { font-size: 0.78rem; color: var(--mid); }
+.ch-arrow { margin-left: auto; color: var(--gray2); transition: var(--transition); }
+.channel:hover .ch-arrow { color: var(--blue-light); transform: translateX(4px); }
+
+/* Horário de atendimento badge */
+.hours-badge {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; border-radius: var(--radius-sm);
+  background: var(--blue-glass); border: 1px solid rgba(26,86,219,0.25);
+  margin-top: 16px; font-size: 0.82rem; color: var(--blue-light);
+}
+.hours-badge i { font-size: 1rem; }
+
+/* Formulário */
+.form-box {
+  background: var(--dark2); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius); padding: 42px;
+}
+.form-box h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 6px; }
+.form-box > p { font-size: 0.83rem; color: var(--mid); margin-bottom: 28px; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fg { margin-bottom: 14px; }
+.fg label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--lighter); letter-spacing: 0.5px; margin-bottom: 7px; }
+.fg input, .fg textarea, .fg select {
+  width: 100%; background: var(--dark3);
+  border: 1.5px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-xs); padding: 13px 15px;
+  color: var(--white); font-size: 0.875rem;
+  transition: border-color 0.3s; outline: none;
+}
+.fg input::placeholder, .fg textarea::placeholder { color: var(--gray2); }
+.fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--blue); }
+.fg select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7A99' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+.fg textarea { min-height: 110px; resize: vertical; }
+.form-submit {
+  width: 100%; background: var(--blue); color: var(--white);
+  padding: 15px; border-radius: var(--radius-xs); font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 0.4px; transition: var(--transition);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.form-submit:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: var(--shadow-blue); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+#footer {
+  background: var(--dark); border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 80px 0 0;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2.2fr 1fr 1fr 1.2fr;
+  gap: 48px; margin-bottom: 60px;
+}
+.footer-brand p {
+  font-size: 0.83rem; color: var(--mid); line-height: 1.85;
+  margin: 16px 0 22px;
+}
+.footer-social { display: flex; gap: 10px; }
+.soc-btn {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--dark3); border: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.88rem; color: var(--mid); cursor: pointer;
+  transition: var(--transition);
+}
+.soc-btn:hover { background: var(--blue); color: var(--white); border-color: var(--blue); transform: translateY(-3px); }
+.footer-col h4 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 20px; color: var(--lighter); }
+.footer-col ul li { margin-bottom: 11px; }
+.footer-col ul li a { font-size: 0.8rem; color: var(--mid); transition: color 0.25s; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-contact-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 0.8rem; color: var(--mid); margin-bottom: 13px;
+}
+.footer-contact-item i { color: var(--blue-light); font-size: 0.85rem; margin-top: 2px; flex-shrink: 0; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.05); padding: 22px 0;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-bottom p { font-size: 0.75rem; color: var(--gray2); }
+.footer-bottom-links { display: flex; gap: 22px; }
+.footer-bottom-links a { font-size: 0.75rem; color: var(--gray2); transition: color 0.25s; }
+.footer-bottom-links a:hover { color: var(--white); }
+
+/* ============================================================
+   WHATSAPP FLOAT
+   ============================================================ */
+#wa-float {
+  position: fixed; bottom: 26px; right: 26px; z-index: 998;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25D366; color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.55rem; box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+  cursor: pointer; transition: var(--transition);
+  animation: waPulse 3s ease-in-out infinite;
+}
+#wa-float:hover { transform: scale(1.1); background: #1DA851; }
+@keyframes waPulse {
+  0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.45); }
+  50%      { box-shadow: 0 6px 36px rgba(37,211,102,0.75); }
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
+@media (max-width: 1024px) {
+  #topbar { display: none; }
+  #navbar { top: 0; }
+  #hero { padding-top: 88px; }
+
+  .about-grid, .careers-grid, .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+  .about-imgs { height: 360px; }
+  .about-img-sec { width: 190px; height: 170px; }
+  .about-badge-years { top: 18px; right: 58px; }
+
+  .stats-grid { grid-template-columns: repeat(3, 1fr); }
+  .partners-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  .hero-title { font-size: 2.3rem; }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-stats { gap: 22px; }
+  .hero-stat-num { font-size: 1.35rem; }
+  .hero-buttons .btn { font-size: 0.83rem; padding: 13px 20px; }
+
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+  .stat-num { font-size: 2.2rem; }
+
+  .about-imgs { height: 280px; }
+  .about-img-main { right: 50px; bottom: 60px; }
+  .about-img-sec { width: 150px; height: 140px; }
+  .about-pillars { grid-template-columns: 1fr; }
+
+  .lines-grid { grid-template-columns: 1fr; }
+  .filter-bar { gap: 7px; }
+  .flt-btn { padding: 7px 14px; font-size: 0.77rem; }
+
+  .form-row-2 { grid-template-columns: 1fr; }
+  .form-box { padding: 28px 20px; }
+
+  .partners-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .footer-bottom-links { justify-content: center; flex-wrap: wrap; }
+
+  .cta-inner { flex-direction: column; text-align: center; }
+  .cta-txt p { max-width: 100%; }
+  .cta-btns { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 18px; }
+  .section-title { font-size: 1.75rem; }
+  .hero-title { font-size: 1.95rem; }
+  .hero-stats { flex-wrap: wrap; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat-card { padding: 32px 24px; }
+  .partners-grid { grid-template-columns: repeat(2, 1fr); }
+  .fleet-card { width: 290px; }
+  .hero-grid-dots { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================
+     TOPBAR
+     ================================================ -->
+<div id="topbar">
+  <div class="topbar-inner">
+    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+      <div class="topbar-item"><i class="fas fa-phone-alt"></i> (85) 3388-4050</div>
+      <div class="topbar-item"><i class="fas fa-clock"></i> Seg a Sex — 08h às 17h</div>
+      <div class="topbar-item"><i class="fas fa-map-marker-alt"></i> Fortaleza, CE</div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-social">
+        <a href="https://instagram.com/saojose12" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/5585933884050" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================
+     NAVBAR
+     ================================================ -->
+<nav id="navbar">
+  <div class="nav-inner">
+
+    <!-- Logo -->
+    <a href="#" class="nav-logo">
+      <!-- SVG Logo São José (recriação fiel da identidade) -->
+      <svg class="logo-svg" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Círculo superior -->
+        <ellipse cx="80" cy="68" rx="58" ry="58" fill="#1A56DB"/>
+        <!-- Forma ônibus inferior -->
+        <ellipse cx="80" cy="118" rx="40" ry="30" fill="#1A56DB"/>
+        <!-- Pista superior (faixas brancas perspectiva) -->
+        <path d="M32 55 Q80 40 128 55" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M38 68 Q80 52 122 68" stroke="white" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <path d="M44 82 Q80 65 116 82" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <!-- Divisória central -->
+        <path d="M80 38 L80 126" stroke="white" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+        <!-- Pista inferior -->
+        <path d="M48 100 Q80 92 112 100" stroke="white" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <path d="M52 112 Q80 106 108 112" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="logo-text">
+        <strong>São José</strong>
+        <small>Transporte Urbano</small>
+      </div>
+    </a>
+
+    <!-- Links -->
+    <ul class="nav-links">
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="#lines">Linhas</a></li>
+      <li><a href="#fleet">Frota</a></li>
+      <li><a href="#partners">Parceiros</a></li>
+      <li><a href="#careers">Vagas</a></li>
+      <li><a href="#contact">Contato</a></li>
+      <li>
+        <a href="https://colaborador.avsaojose.com.br/login" target="_blank" class="nav-colaborador">
+          <i class="fas fa-user-tie"></i> Colaborador
+        </a>
+      </li>
+    </ul>
+
+    <!-- CTA Desktop -->
+    <div class="nav-cta">
+      <a href="#lines" class="btn btn-primary" style="padding:11px 22px;font-size:0.82rem;">
+        <i class="fas fa-route"></i> Ver Linhas
+      </a>
+    </div>
+
+    <!-- Hambúrguer -->
+    <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" role="dialog" aria-label="Menu de navegação">
+  <a href="#about"    class="mob-link">Sobre a Empresa</a>
+  <a href="#lines"    class="mob-link">Linhas e Horários</a>
+  <a href="#fleet"    class="mob-link">Nossa Frota</a>
+  <a href="#partners" class="mob-link">Parceiros</a>
+  <a href="#careers"  class="mob-link">Trabalhe Conosco</a>
+  <a href="#contact"  class="mob-link">Contato</a>
+  <div class="mob-divider"></div>
+  <a href="https://colaborador.avsaojose.com.br/login" target="_blank" class="mob-collab">
+    <i class="fas fa-user-tie"></i> Área do Colaborador
+  </a>
+  <div class="mob-info">
+    <i class="fas fa-phone-alt" style="color:var(--blue-light)"></i>
+    (85) 3388-4050 &nbsp;·&nbsp; Seg–Sex, 08h–17h
+  </div>
+</div>
+
+<!-- ================================================
+     HERO
+     ================================================ -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-img"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-overlay-bottom"></div>
+  </div>
+  <div class="hero-accent-line"></div>
+  <div class="hero-grid-dots"></div>
+
+  <div class="container" style="position:relative;z-index:10;width:100%;">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        Fortaleza e Região Metropolitana
+      </div>
+
+      <h1 class="hero-title">
+        Movendo Fortaleza<br/>
+        com <span class="hero-title-accent">segurança</span>,<br/>
+        tradição e inovação.
+      </h1>
+
+      <p class="hero-sub">
+        Há mais de 30 anos conectando pessoas com conforto, tecnologia e confiança.
+        Uma frota moderna e operação comprometida com quem mais importa: você.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#lines"   class="btn btn-primary"><i class="fas fa-route"></i> Ver Linhas</a>
+        <a href="#careers" class="btn btn-outline"><i class="fas fa-briefcase"></i> Trabalhe Conosco</a>
+        <a href="https://wa.me/5585933884050" target="_blank" class="btn btn-outline"><i class="fab fa-whatsapp"></i> Atendimento</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-num"><span class="h-counter" data-target="30">0</span><span style="color:var(--blue-light)">+</span></div>
+          <div class="hero-stat-label">Anos de história</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num"><span class="h-counter" data-target="80">0</span><span style="color:var(--blue-light)">+</span></div>
+          <div class="hero-stat-label">Ônibus na frota</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num"><span class="h-counter" data-target="35">0</span><span style="color:var(--blue-light)">+</span></div>
+          <div class="hero-stat-label">Linhas ativas</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">24<span style="color:var(--blue-light)">h</span></div>
+          <div class="hero-stat-label">Operação diária</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ================================================
+     TICKER
+     ================================================ -->
+<div id="ticker">
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <div class="ticker-item"><div class="ticker-dot"></div> Linhas operando normalmente</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Frota 100% climatizada</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Pagamento com cartão e PIX</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Atendimento: (85) 3388-4050</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Seg a Sex 08h às 17h</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Acessibilidade em toda a frota</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Siga-nos: @saojose12</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> +30 anos movendo Fortaleza</div>
+      <!-- duplicado para loop -->
+      <div class="ticker-item"><div class="ticker-dot"></div> Linhas operando normalmente</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Frota 100% climatizada</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Pagamento com cartão e PIX</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Atendimento: (85) 3388-4050</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Seg a Sex 08h às 17h</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Acessibilidade em toda a frota</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> Siga-nos: @saojose12</div>
+      <div class="ticker-item"><div class="ticker-dot"></div> +30 anos movendo Fortaleza</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================
+     STATS
+     ================================================ -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-header">
+      <div class="section-tag reveal">Nossa Trajetória</div>
+      <h2 class="section-title reveal delay-1">Números que comprovam<br/>nossa <em style="color:var(--blue-light);font-style:normal;">excelência</em></h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <div class="stat-icon"><i class="fas fa-history"></i></div>
+        <div class="stat-num"><span class="counter" data-target="30">0</span><em>+</em></div>
+        <div class="stat-lbl">Anos de História</div>
+      </div>
+      <div class="stat-card reveal delay-1">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-num"><span class="counter" data-target="150">0</span><em>mil+</em></div>
+        <div class="stat-lbl">Passageiros por Mês</div>
+      </div>
+      <div class="stat-card reveal delay-2">
+        <div class="stat-icon"><i class="fas fa-bus"></i></div>
+        <div class="stat-num"><span class="counter" data-target="80">0</span><em>+</em></div>
+        <div class="stat-lbl">Ônibus na Frota</div>
+      </div>
+      <div class="stat-card reveal delay-3">
+        <div class="stat-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <div class="stat-num"><span class="counter" data-target="35">0</span><em>+</em></div>
+        <div class="stat-lbl">Linhas Ativas</div>
+      </div>
+      <div class="stat-card reveal delay-4">
+        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+        <div class="stat-num">24<em>h</em></div>
+        <div class="stat-lbl">Operação Diária</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     ABOUT
+     ================================================ -->
+<section id="about">
+  <div class="about-glow"></div>
+  <div class="container">
+    <div class="about-grid">
+
+      <!-- Imagens -->
+      <div class="about-imgs reveal-left">
+        <div class="about-img-main">
+          <img
+            src="https://images.unsplash.com/photo-1570125909517-53cb21c89ff2?w=900&q=80"
+            alt="Frota São José em operação"
+            loading="lazy"
+          />
+        </div>
+        <div class="about-img-sec">
+          <img
+            src="https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?w=500&q=80"
+            alt="Ônibus São José"
+            loading="lazy"
+          />
+        </div>
+        <div class="about-badge-years">
+          <span class="big">30+</span>
+          <span class="sm">Anos de<br/>Tradição</span>
+        </div>
+      </div>
+
+      <!-- Texto -->
+      <div class="reveal-right">
+        <div class="section-tag">Quem Somos</div>
+        <h2 class="section-title">Tradição e modernidade<br/>lado a lado</h2>
+        <p class="section-sub">
+          A São José Transporte Urbano é uma das empresas mais tradicionais de mobilidade urbana de Fortaleza,
+          unindo décadas de experiência com tecnologia e inovação contínua.
+        </p>
+        <p style="font-size:0.875rem;color:var(--mid);line-height:1.9;margin-top:18px;">
+          Nossa missão é simples: levar você com segurança, pontualidade e conforto.
+          Investimos permanentemente em renovação de frota, capacitação de colaboradores
+          e soluções tecnológicas para garantir a melhor experiência em cada viagem.
+        </p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>Segurança</h4>
+            <p>Frota monitorada 24h com rastreamento e câmeras em tempo real</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
+            <h4>Sustentabilidade</h4>
+            <p>Compromisso com o meio ambiente e emissões controladas</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-accessible-icon"></i></div>
+            <h4>Acessibilidade</h4>
+            <p>Veículos adaptados para todos os passageiros, sem exceção</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-star"></i></div>
+            <h4>Qualidade</h4>
+            <p>Padrão premium em cada detalhe da operação</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     LINES
+     ================================================ -->
+<section id="lines">
+  <div class="container">
+    <div class="lines-top">
+      <div class="section-tag reveal">Linhas e Horários</div>
+      <h2 class="section-title reveal delay-1">Encontre sua linha<br/>em segundos</h2>
+      <p class="section-sub reveal delay-2">Busque por bairro, terminal ou número da linha e veja horários atualizados.</p>
+    </div>
+
+    <div class="search-wrap reveal">
+      <div class="search-icon"><i class="fas fa-search"></i></div>
+      <input type="text" id="lineSearch" placeholder="Pesquise por linha, bairro ou destino..."/>
+      <button onclick="doSearch()"><i class="fas fa-search"></i>&nbsp; Buscar</button>
+    </div>
+
+    <div class="filter-bar reveal delay-1">
+      <button class="flt-btn active" onclick="filterLines(this,'all')">Todas</button>
+      <button class="flt-btn" onclick="filterLines(this,'centro')">Centro</button>
+      <button class="flt-btn" onclick="filterLines(this,'bairro')">Bairros</button>
+      <button class="flt-btn" onclick="filterLines(this,'terminal')">Terminais</button>
+      <button class="flt-btn" onclick="filterLines(this,'noturna')">Noturnas</button>
+    </div>
+
+    <div class="lines-grid" id="linesGrid"></div>
+  </div>
+</section>
+
+<!-- ================================================
+     FLEET
+     ================================================ -->
+<section id="fleet">
+  <div class="container">
+    <div class="fleet-top">
+      <div class="section-tag reveal">Nossa Frota</div>
+      <h2 class="section-title reveal delay-1">Veículos modernos,<br/>viagem <em style="color:var(--blue-light);font-style:normal;">confortável</em></h2>
+      <p class="section-sub reveal delay-2">
+        Renovação contínua da frota para garantir conforto, segurança e a melhor experiência a bordo.
+      </p>
+    </div>
+    <div class="fleet-scroller reveal" id="fleetScroll">
+      <div class="fleet-row" id="fleetRow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PARTNERS
+     ================================================ -->
+<section id="partners">
+  <div class="container">
+    <div class="partners-header">
+      <div class="section-tag reveal">Parceiros</div>
+      <h2 class="section-title reveal delay-1">Quem caminha<br/>ao nosso lado</h2>
+      <p class="partners-sub reveal delay-2">
+        Empresas e órgãos parceiros que reforçam nossa credibilidade e compromisso com Fortaleza.
+      </p>
+    </div>
+
+    <div class="partners-grid reveal">
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-city"></i>
+          <span>Prefeitura<br/>Fortaleza</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-road"></i>
+          <span>ETUFOR</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-building"></i>
+          <span>Governo<br/>do Estado</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-bus-alt"></i>
+          <span>SETFOR</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-credit-card"></i>
+          <span>Cartão<br/>Bom Cartão</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-tools"></i>
+          <span>Volvo<br/>Trucks</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-oil-can"></i>
+          <span>Petrobras<br/>Combustíveis</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-shield-alt"></i>
+          <span>Bradesco<br/>Seguros</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-satellite-dish"></i>
+          <span>Sistema GPS<br/>Rastreamento</span>
+        </div>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-box">
+          <i class="fas fa-hands-helping"></i>
+          <span>SEST<br/>SENAT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="partners-seals reveal delay-2">
+      <div class="seal"><i class="fas fa-award"></i> ISO 9001 — Qualidade Certificada</div>
+      <div class="seal"><i class="fas fa-leaf"></i> Programa Verde Urbano</div>
+      <div class="seal"><i class="fas fa-accessible-icon"></i> Acessibilidade Total</div>
+      <div class="seal"><i class="fas fa-shield-alt"></i> Frota Rastreada 24h</div>
+      <div class="seal"><i class="fas fa-star"></i> Empresa Modelo SETFOR</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     CAREERS
+     ================================================ -->
+<section id="careers">
+  <div class="careers-watermark">EQUIPE</div>
+  <div class="container">
+    <div class="careers-grid">
+
+      <!-- Esquerda -->
+      <div class="careers-left">
+        <div class="section-tag reveal">Trabalhe Conosco</div>
+        <h2 class="section-title reveal delay-1">Faça parte do time<br/>que <em style="color:var(--blue-light);font-style:normal;">move</em> Fortaleza</h2>
+        <p class="section-sub reveal delay-2">
+          Buscamos pessoas comprometidas com a excelência e que queiram crescer
+          em uma empresa sólida, respeitada e em constante evolução.
+        </p>
+        <div class="benefits">
+          <div class="benefit reveal delay-1">
+            <div class="benefit-ico"><i class="fas fa-hand-holding-heart"></i></div>
+            <div class="benefit-txt"><h4>Plano de Saúde</h4><p>Cobertura médica e odontológica para você e família</p></div>
+          </div>
+          <div class="benefit reveal delay-2">
+            <div class="benefit-ico"><i class="fas fa-graduation-cap"></i></div>
+            <div class="benefit-txt"><h4>Capacitação Contínua</h4><p>Treinamentos, cursos e desenvolvimento profissional</p></div>
+          </div>
+          <div class="benefit reveal delay-3">
+            <div class="benefit-ico"><i class="fas fa-chart-line"></i></div>
+            <div class="benefit-txt"><h4>Plano de Carreira</h4><p>Promoções internas e crescimento estruturado</p></div>
+          </div>
+          <div class="benefit reveal delay-4">
+            <div class="benefit-ico"><i class="fas fa-utensils"></i></div>
+            <div class="benefit-txt"><h4>Vale Refeição e Alimentação</h4><p>Benefícios alimentares competitivos no mercado</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Direita: Vagas -->
+      <div class="careers-right">
+        <p class="openings-label reveal">Vagas abertas agora</p>
+        <div class="job-card reveal delay-1">
+          <div class="job-head"><div class="job-title">Motorista de Ônibus</div><i class="fas fa-chevron-right" style="color:var(--gray2)"></i></div>
+          <div class="job-area"><i class="fas fa-map-marker-alt"></i> Fortaleza, CE — Operações</div>
+          <div class="job-tags"><span class="job-tag hi">CLT</span><span class="job-tag">CNH D/E</span><span class="job-tag">Exp. requerida</span></div>
+        </div>
+        <div class="job-card reveal delay-2">
+          <div class="job-head"><div class="job-title">Cobrador(a)</div><i class="fas fa-chevron-right" style="color:var(--gray2)"></i></div>
+          <div class="job-area"><i class="fas fa-map-marker-alt"></i> Fortaleza, CE — Operações</div>
+          <div class="job-tags"><span class="job-tag hi">CLT</span><span class="job-tag">Ensino Médio</span><span class="job-tag">Atendimento</span></div>
+        </div>
+        <div class="job-card reveal delay-3">
+          <div class="job-head"><div class="job-title">Mecânico de Manutenção</div><i class="fas fa-chevron-right" style="color:var(--gray2)"></i></div>
+          <div class="job-area"><i class="fas fa-map-marker-alt"></i> Fortaleza, CE — Manutenção</div>
+          <div class="job-tags"><span class="job-tag hi">CLT</span><span class="job-tag">Curso Técnico</span><span class="job-tag">Diesel</span></div>
+        </div>
+        <div class="job-card reveal delay-4">
+          <div class="job-head"><div class="job-title">Auxiliar Administrativo</div><i class="fas fa-chevron-right" style="color:var(--gray2)"></i></div>
+          <div class="job-area"><i class="fas fa-map-marker-alt"></i> Fortaleza, CE — Administrativo</div>
+          <div class="job-tags"><span class="job-tag hi">CLT</span><span class="job-tag">Excel</span><span class="job-tag">Pacote Office</span></div>
+        </div>
+
+        <!-- CTA Externo -->
+        <a href="https://vagas.autoviacaosaojose.com.br/login" target="_blank" class="careers-cta-btn reveal delay-5">
+          <i class="fas fa-external-link-alt"></i>
+          Ver todas as vagas e se candidatar
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     CTA BANNER
+     ================================================ -->
+<section id="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-txt">
+        <h2>Precisa de atendimento<br/>especializado?</h2>
+        <p>Nossa equipe está pronta para ajudar com qualquer dúvida, sugestão ou reclamação. Fale conosco agora.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="https://wa.me/5585933884050" target="_blank" class="btn btn-white">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a href="tel:+558533884050" class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.35);">
+          <i class="fas fa-phone-alt"></i> (85) 3388-4050
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     CONTACT
+     ================================================ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Canais -->
+      <div>
+        <div class="section-tag reveal">Atendimento</div>
+        <h2 class="section-title reveal delay-1">Estamos aqui<br/>para <em style="color:var(--blue-light);font-style:normal;">você</em></h2>
+        <p class="section-sub reveal delay-2">Escolha o canal de sua preferência. Respondemos rapidamente e com atenção.</p>
+
+        <div class="hours-badge reveal delay-3">
+          <i class="fas fa-clock"></i>
+          <span>Atendimento: <strong>Segunda a Sexta, das 08h às 17h</strong></span>
+        </div>
+
+        <div class="channels reveal delay-2">
+          <a href="https://wa.me/5585933884050" target="_blank" class="channel">
+            <div class="ch-icon green"><i class="fab fa-whatsapp"></i></div>
+            <div class="ch-info"><h4>WhatsApp</h4><p>Atendimento rápido e direto</p></div>
+            <i class="fas fa-chevron-right ch-arrow"></i>
+          </a>
+          <a href="tel:+558533884050" class="channel">
+            <div class="ch-icon blue"><i class="fas fa-phone-alt"></i></div>
+            <div class="ch-info"><h4>(85) 3388-4050</h4><p>Seg a Sex — 08h às 17h</p></div>
+            <i class="fas fa-chevron-right ch-arrow"></i>
+          </a>
+          <a href="https://instagram.com/saojose12" target="_blank" class="channel">
+            <div class="ch-icon indigo"><i class="fab fa-instagram"></i></div>
+            <div class="ch-info"><h4>Instagram</h4><p>@saojose12</p></div>
+            <i class="fas fa-chevron-right ch-arrow"></i>
+          </a>
+          <div class="channel">
+            <div class="ch-icon sky"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="ch-info"><h4>Sede</h4><p>Fortaleza, CE — Brasil</p></div>
+            <i class="fas fa-chevron-right ch-arrow"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulário -->
+      <div class="form-box reveal reveal-right delay-2">
+        <h3>Envie uma mensagem</h3>
+        <p>Preencha o formulário e retornaremos em até 24 horas úteis.</p>
+        <form onsubmit="handleForm(event)">
+          <div class="form-row-2">
+            <div class="fg"><label>Nome</label><input type="text" placeholder="Seu nome completo" required/></div>
+            <div class="fg"><label>Telefone</label><input type="tel" placeholder="(85) 9 9999-9999"/></div>
+          </div>
+          <div class="fg"><label>E-mail</label><input type="email" placeholder="seu@email.com" required/></div>
+          <div class="fg">
+            <label>Assunto</label>
+            <select>
+              <option value="">Selecione o assunto</option>
+              <option>Informação sobre linhas e horários</option>
+              <option>Reclamação</option>
+              <option>Elogio</option>
+              <option>Trabalhe Conosco</option>
+              <option>Parceria Comercial</option>
+              <option>Outros</option>
+            </select>
+          </div>
+          <div class="fg"><label>Mensagem</label><textarea placeholder="Descreva sua mensagem aqui..."></textarea></div>
+          <button type="submit" class="form-submit" id="formSubmit">
+            <i class="fas fa-paper-plane"></i> Enviar Mensagem
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     FOOTER
+     ================================================ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:0;">
+          <svg class="logo-svg" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="80" cy="68" rx="58" ry="58" fill="#1A56DB"/>
+            <ellipse cx="80" cy="118" rx="40" ry="30" fill="#1A56DB"/>
+            <path d="M32 55 Q80 40 128 55" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M38 68 Q80 52 122 68" stroke="white" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <path d="M44 82 Q80 65 116 82" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M80 38 L80 126" stroke="white" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+            <path d="M48 100 Q80 92 112 100" stroke="white" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M52 112 Q80 106 108 112" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <div class="logo-text">
+            <strong>São José</strong>
+            <small>Transporte Urbano</small>
+          </div>
+        </div>
+        <p>Conectando Fortaleza e Região Metropolitana com segurança, conforto e pontualidade há mais de 30 anos. A empresa que move a sua vida.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/saojose12" target="_blank" class="soc-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/5585933884050" target="_blank" class="soc-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" class="soc-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="soc-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Navegação -->
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#about">Sobre a Empresa</a></li>
+          <li><a href="#lines">Linhas e Horários</a></li>
+          <li><a href="#fleet">Nossa Frota</a></li>
+          <li><a href="#partners">Parceiros</a></li>
+          <li><a href="#careers">Trabalhe Conosco</a></li>
+        </ul>
+      </div>
+
+      <!-- Serviços -->
+      <div class="footer-col">
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#">Transporte Urbano</a></li>
+          <li><a href="#">Linhas Intermunicipais</a></li>
+          <li><a href="#">Fretamento</a></li>
+          <li><a href="#">Cartão de Integração</a></li>
+          <li><a href="https://colaborador.avsaojose.com.br/login" target="_blank">Área do Colaborador</a></li>
+        </ul>
+      </div>
+
+      <!-- Contato -->
+      <div class="footer-col">
+        <h4>Fale Conosco</h4>
+        <div class="footer-contact-item"><i class="fas fa-phone-alt"></i><span>(85) 3388-4050</span></div>
+        <div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span>WhatsApp: (85) 9 3388-4050</span></div>
+        <div class="footer-contact-item"><i class="fab fa-instagram"></i><span>@saojose12</span></div>
+        <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Seg a Sex — 08h às 17h</span></div>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Fortaleza, CE</span></div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 São José Transporte Urbano. Todos os direitos reservados.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">Ouvidoria</a>
+        <a href="https://colaborador.avsaojose.com.br/login" target="_blank">Colaborador</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a id="wa-float" href="https://wa.me/5585933884050" target="_blank" title="Fale pelo WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ================================================
+     JAVASCRIPT
+     ================================================ -->
+<script>
+/* ── TOPBAR offset para navbar ── */
+(function() {
+  const tb = document.getElementById('topbar');
+  const nb = document.getElementById('navbar');
+  function adjustNav() {
+    if (window.innerWidth > 1024) {
+      nb.style.top = tb.offsetHeight + 'px';
+      document.getElementById('hero').style.paddingTop = (tb.offsetHeight + nb.querySelector('.nav-inner').offsetHeight) + 'px';
+    } else {
+      nb.style.top = '0';
+      document.getElementById('hero').style.paddingTop = '88px';
+    }
+  }
+  adjustNav();
+  window.addEventListener('resize', adjustNav);
+})();
+
+/* ── NAVBAR SCROLL ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── HAMBÚRGUER ── */
+const hBtn  = document.getElementById('hamburgerBtn');
+const mMenu = document.getElementById('mobile-menu');
+hBtn.addEventListener('click', () => {
+  const open = hBtn.classList.toggle('open');
+  mMenu.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hBtn.classList.remove('open');
+  mMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+/* ── SCROLL REVEAL ── */
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.10 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => ro.observe(el));
+
+/* ── COUNTER ANIMATION ── */
+function runCounter(el) {
+  const target = +el.dataset.target;
+  const dur = 2200;
+  const step = target / (dur / 16);
+  let cur = 0;
+  const t = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = Math.floor(cur);
+    if (cur >= target) clearInterval(t);
+  }, 16);
+}
+const co = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter, .h-counter').forEach(runCounter);
+      co.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.25 });
+[document.getElementById('stats'), document.getElementById('hero')].forEach(s => s && co.observe(s));
+
+/* ── LINES DATA ── */
+const LINES = [
+  { num:'010', name:'Messejana / Centro', route:'Messejana → Praça do Ferreira', freq:'10 min', type:'centro', tags:['bairro','centro'] },
+  { num:'023', name:'Mondubim / Centro',  route:'Mondubim → Terminal Papicu',    freq:'15 min', type:'terminal',tags:['terminal'] },
+  { num:'045', name:'Jangurussu / Aldeota',route:'Jangurussu → Av. Santos Dumont',freq:'12 min',type:'bairro', tags:['bairro'] },
+  { num:'061', name:'Parangaba / Centro', route:'Terminal Parangaba → Sé',       freq:'8 min',  type:'terminal',tags:['terminal','centro'] },
+  { num:'078', name:'Conj. Ceará / Papicu',route:'Conj. Ceará → Terminal Papicu',freq:'18 min', type:'bairro', tags:['bairro','terminal'] },
+  { num:'092', name:'Passaré / Centro',   route:'Passaré → Rua do Quartel',      freq:'10 min', type:'centro', tags:['bairro','centro'] },
+  { num:'110', name:'Maraponga / Aldeota',route:'Maraponga → Hospital São José',  freq:'14 min', type:'bairro', tags:['bairro'] },
+  { num:'155', name:'Noturna Especial',   route:'Centro → Messejana (Noturna)',   freq:'30 min', type:'noturna',tags:['noturna'] },
+  { num:'201', name:'Granja Portugal / Sé',route:'Granja Portugal → Catedral',   freq:'12 min', type:'centro', tags:['centro'] },
+];
+
+function renderLines(data) {
+  const g = document.getElementById('linesGrid');
+  if (!data.length) {
+    g.innerHTML = '<p style="color:var(--mid);font-size:.875rem;padding:24px 0;">Nenhuma linha encontrada. Tente outro termo.</p>';
+    return;
+  }
+  g.innerHTML = data.map(l => `
+    <div class="line-card reveal">
+      <div class="line-head">
+        <div class="line-num">${l.num}</div>
+        <div class="line-status-dot">Em operação</div>
+      </div>
+      <div class="line-name">${l.name}</div>
+      <div class="line-route"><i class="fas fa-long-arrow-alt-right" style="color:var(--blue-light)"></i> ${l.route}</div>
+      <div class="line-foot">
+        <div class="lf-item"><span class="lbl">Frequência</span><span class="val">${l.freq}</span></div>
+        <div class="lf-item"><span class="lbl">Início</span><span class="val">05:00</span></div>
+        <div class="lf-item"><span class="lbl">Fim</span><span class="val">23:30</span></div>
+      </div>
+    </div>
+  `).join('');
+  g.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+}
+renderLines(LINES);
+
+function filterLines(btn, type) {
+  document.querySelectorAll('.flt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLines(type === 'all' ? LINES : LINES.filter(l => l.type === type || l.tags.includes(type)));
+}
+function doSearch() {
+  const q = document.getElementById('lineSearch').value.toLowerCase().trim();
+  renderLines(q ? LINES.filter(l => l.num.includes(q) || l.name.toLowerCase().includes(q) || l.route.toLowerCase().includes(q)) : LINES);
+}
+document.getElementById('lineSearch').addEventListener('input', doSearch);
+
+/* ── FLEET DATA ── */
+const FLEET = [
+  {
+    name: 'Ônibus Urbano Climatizado',
+    desc: 'Veículo padrão de alta capacidade com ar-condicionado, piso baixo e rampa de acessibilidade.',
+    badge: 'Padrão',
+    img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=700&q=80',
+    feats: ['Ar-condicionado','Rampa acessível','GPS rastreado','Câmeras a bordo']
+  },
+  {
+    name: 'Ônibus Premium',
+    desc: 'Máximo conforto com poltronas reclináveis, tomadas USB e Wi-Fi para linhas expressas.',
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=700&q=80',
+    feats: ['Wi-Fi gratuito','Tomadas USB','Poltronas premium','Ar-condicionado']
+  },
+  {
+    name: 'Ônibus Articulado BRT',
+    desc: 'Alta capacidade para corredores de grande fluxo, com embarque simultâneo em múltiplas portas.',
+    badge: 'BRT',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80',
+    feats: ['Alta capacidade','3 portas largas','Embarque ágil','Climatizado']
+  },
+  {
+    name: 'Micro-ônibus Acessível',
+    desc: 'Compacto e totalmente acessível para linhas com menor demanda e vias estreitas.',
+    badge: 'Acessível',
+    img: 'https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?w=700&q=80',
+    feats: ['Rampa elétrica','Piso rebaixado','Sinalização sonora','Climatizado']
+  },
+  {
+    name: 'Ônibus Interurbano',
+    desc: 'Conforto completo para viagens entre Fortaleza e municípios da Região Metropolitana.',
+    badge: 'Intermunicipal',
+    img: 'https://images.unsplash.com/photo-1561361058-c24e020f7b80?w=700&q=80',
+    feats: ['Poltronas recl.','Bagageiro','Wi-Fi','WC a bordo']
+  },
+];
+
+const fleetRow = document.getElementById('fleetRow');
+fleetRow.innerHTML = FLEET.map(f => `
+  <div class="fleet-card">
+    <div class="fleet-img">
+      <img src="${f.img}" alt="${f.name}" loading="lazy"/>
+      <div class="fleet-img-overlay"></div>
+      <div class="fleet-img-badge">${f.badge}</div>
+    </div>
+    <div class="fleet-body">
+      <div class="fleet-name">${f.name}</div>
+      <div class="fleet-desc">${f.desc}</div>
+      <div class="fleet-feats">
+        ${f.feats.map(ft => `<div class="fleet-feat"><i class="fas fa-check-circle"></i> ${ft}</div>`).join('')}
+      </div>
+    </div>
+  </div>
+`).join('');
+
+/* Drag scroll frota */
+const fs = document.getElementById('fleetScroll');
+let isDown = false, startX, scrollLeft;
+fs.addEventListener('mousedown', e => { isDown=true; startX=e.pageX-fs.offsetLeft; scrollLeft=fs.scrollLeft; });
+fs.addEventListener('mouseleave', () => isDown=false);
+fs.addEventListener('mouseup', () => isDown=false);
+fs.addEventListener('mousemove', e => {
+  if (!isDown) return; e.preventDefault();
+  fs.scrollLeft = scrollLeft - (e.pageX - fs.offsetLeft - startX) * 1.5;
+});
+
+/* ── FORM ── */
+function handleForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('formSubmit');
+  btn.innerHTML = '<i class="fas fa-check-circle"></i> Mensagem enviada com sucesso!';
+  btn.style.background = '#22c55e';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensagem';
+    btn.style.background = '';
+    btn.disabled = false;
+    e.target.reset();
+  }, 3500);
+}
+
+/* ── ACTIVE NAV LINK on scroll ── */
+const sections = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a:not(.nav-colaborador)');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) current = s.id; });
+  navAs.forEach(a => {
+    const active = a.getAttribute('href') === '#' + current;
+    a.style.color = active ? 'var(--white)' : '';
+    a.style.background = active ? 'rgba(255,255,255,0.07)' : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
